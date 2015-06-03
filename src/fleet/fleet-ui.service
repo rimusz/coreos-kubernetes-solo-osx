@@ -22,4 +22,4 @@ Restart=always
 RestartSec=10s
 
 [X-Fleet]
-MachineMetadata=role=control
+MachineMetadata=role=kube

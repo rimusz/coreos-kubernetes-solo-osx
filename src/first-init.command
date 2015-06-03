@@ -3,14 +3,14 @@
 #  first-init.command
 #  CoreOS Kubernetes Solo for OS X
 #
-#  Created by Rimantas on 01/04/2014.
+#  Created by Rimantas on 03/06/2015.
 #  Copyright (c) 2014 Rimantas Mocevicius. All rights reserved.
 
 # get App's Resources folder
 res_folder=$(cat ~/coreos-k8s-solo/.env/resouces_path)
 
 echo " "
-echo Installing Kubernetes solo cluster...
+echo Installing Kubernetes Solo ...
 echo " "
 # install vagrant scp plugin
 vagrant plugin install vagrant-scp
@@ -31,8 +31,8 @@ sed -i "" 's/172.17.8.#{i+100}/172.19.17.99/g' ~/coreos-k8s-solo/kube/Vagrantfil
 # config.rb files
 # kube
 cp ~/coreos-k8s-solo/tmp/config.rb.sample ~/coreos-k8s-solo/kube/config.rb
-sed -i "" 's/#$instance_name_prefix="core"/$instance_name_prefix="k8smaster"/' ~/coreos-k8s-solo/kube/config.rb
-sed -i "" 's/#$vm_memory = 1024/$vm_memory = 1534/' ~/coreos-k8s-solo/kube/config.rb
+sed -i "" 's/#$instance_name_prefix="core"/$instance_name_prefix="k8solo"/' ~/coreos-k8s-solo/kube/config.rb
+sed -i "" 's/#$vm_memory = 1024/$vm_memory = 1536/' ~/coreos-k8s-solo/kube/config.rb
 ###
 
 ### Set release channel
@@ -97,24 +97,15 @@ echo "Setting up Vagrant VMs for CoreOS Kubernetes Solo on OS X"
 cd ~/coreos-k8s-solo/kube
 vagrant box update
 vagrant up --provider virtualbox
-#
-cd ~/coreos-k8s-solo/workers
-vagrant up --provider virtualbox
 
 # Add vagrant ssh key to ssh-agent
 ssh-add ~/.vagrant.d/insecure_private_key >/dev/null 2>&1
 
 echo " "
-echo " Installing k8s files to master and nodes:"
+echo " Installing k8s files to k8solo-01:"
 cd ~/coreos-k8s-solo/kube
-vagrant scp master.tgz /home/core/
-vagrant ssh k8solo-01 -c "sudo /usr/bin/mkdir -p /opt/bin && sudo tar xzf /home/core/master.tgz -C /opt/bin && sudo chmod 755 /opt/bin/* " >/dev/null 2>&1
-#
-cd ~/coreos-k8s-solo/workers
-vagrant scp nodes.tgz /home/core/
-#
-vagrant ssh k8snode-01 -c "sudo /usr/bin/mkdir -p /opt/bin && sudo tar xzf /home/core/nodes.tgz -C /opt/bin && sudo chmod 755 /opt/bin/* " >/dev/null 2>&1
-vagrant ssh k8snode-02 -c "sudo /usr/bin/mkdir -p /opt/bin && sudo tar xzf /home/core/nodes.tgz -C /opt/bin && sudo chmod 755 /opt/bin/* " >/dev/null 2>&1
+vagrant scp kube.tgz /home/core/
+vagrant ssh k8solo-01 -c "sudo /usr/bin/mkdir -p /opt/bin && sudo tar xzf /home/core/kube.tgz -C /opt/bin && sudo chmod 755 /opt/bin/* " >/dev/null 2>&1
 echo "Done installing ... "
 echo " "
 
@@ -140,13 +131,13 @@ rm -f fleet.zip
 echo " "
 
 # set etcd endpoint
-export ETCDCTL_PEERS=http://172.19.17.99:4001
+export ETCDCTL_PEERS=http://172.19.17.99:2379
 echo "etcd cluster:"
 ~/coreos-k8s-solo/bin/etcdctl ls /
 echo " "
 
 # set fleetctl tunnel
-export FLEETCTL_ENDPOINT=http://172.19.17.99:4001
+export FLEETCTL_ENDPOINT=http://172.19.17.99:2379
 export FLEETCTL_DRIVER=etcd
 export FLEETCTL_STRICT_HOST_KEY_CHECKING=false
 echo "fleetctl list-machines:"
@@ -168,12 +159,10 @@ spin='-\|/'
 i=1
 until ~/coreos-k8s-solo/bin/kubectl version | grep 'Server Version' >/dev/null 2>&1; do printf "\b${spin:i++%${#sp}:1}"; sleep .1; done
 i=0
-until ~/coreos-k8s-solo/bin/kubectl get nodes | grep 172.17.15.102 >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
-i=0
-until ~/coreos-k8s-solo/bin/kubectl get nodes | grep 172.17.15.103 >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
-# attach label to the nodes
-~/coreos-k8s-solo/bin/kubectl label nodes 172.17.15.102 node=worker1
-~/coreos-k8s-solo/bin/kubectl label nodes 172.17.15.103 node=worker2
+until ~/coreos-k8s-solo/bin/kubectl get nodes | grep 172.19.17.99 >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
+echo " "
+# attach label to the node
+~/coreos-k8s-solo/bin/kubectl label nodes 172.19.17.99 node=worker1
 #
 echo " "
 echo "kubectl get nodes:"
@@ -182,8 +171,8 @@ echo " "
 
 #
 echo " "
-echo "Installation has finished, CoreOS VMs are up and running !!!"
-echo "Enjoy CoreOS+Kubernetes Cluster on your Mac !!!"
+echo "Installation has finished, CoreOS VM is up and running !!!"
+echo "Enjoy CoreOS+Kubernetes Solo on your Mac !!!"
 echo " "
 echo "Run from menu 'OS Shell' to open a terninal window with fleetctl, etcdctl and kubectl preset to master's IP!!!"
 echo " "

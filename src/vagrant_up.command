@@ -3,7 +3,7 @@
 #  vagrant_up.command
 #  CoreOS Kubernetes Solo for OS X
 #
-#  Created by Rimantas on 01/12/2014.
+#  Created by Rimantas on 03/06/2015.
 #  Copyright (c) 2014 Rimantas Mocevicius. All rights reserved.
 
 # Add vagrant ssh key to ssh-agent
@@ -16,10 +16,10 @@ res_folder=$(cat ~/coreos-k8s-solo/.env/resouces_path)
 export PATH=${HOME}/coreos-k8s-solo/bin:$PATH
 
 # set etcd endpoint
-export ETCDCTL_PEERS=http://172.19.17.99:4001
+export ETCDCTL_PEERS=http://172.19.17.99:2379
 
 # set fleetctl endpoint
-export FLEETCTL_ENDPOINT=http://172.19.17.99:4001
+export FLEETCTL_ENDPOINT=http://172.19.17.99:2379
 export FLEETCTL_DRIVER=etcd
 export FLEETCTL_STRICT_HOST_KEY_CHECKING=false
 #
@@ -46,24 +46,13 @@ then
     #
     vagrant box update
     vagrant up --provider virtualbox
-    #
-    cd ~/coreos-k8s-solo/workers
-    vagrant box update
-    vagrant up --provider virtualbox
 
-    # install k8s files on master
+    # install k8s files
     echo " "
-    echo "Installing k8s files to master and nodes:"
+    echo "Installing k8s files to k8solo-01:"
     cd ~/coreos-k8s-solo/kube
-    vagrant scp master.tgz /home/core/
-    vagrant ssh k8solo-01 -c "sudo /usr/bin/mkdir -p /opt/bin && sudo tar xzf /home/core/master.tgz -C /opt/bin && sudo chmod 755 /opt/bin/* && ls -alh /opt/bin " >/dev/null 2>&1
-
-    # install k8s files on nodes
-    cd ~/coreos-k8s-solo/workers
-    vagrant scp nodes.tgz /home/core/
-    #
-    vagrant ssh k8snode-01 -c "sudo /usr/bin/mkdir -p /opt/bin && sudo tar xzf /home/core/nodes.tgz -C /opt/bin && sudo chmod 755 /opt/bin/* && ls -alh /opt/bin " >/dev/null 2>&1
-    vagrant ssh k8snode-02 -c "sudo /usr/bin/mkdir -p /opt/bin && sudo tar xzf /home/core/nodes.tgz -C /opt/bin && sudo chmod 755 /opt/bin/* && ls -alh /opt/bin " >/dev/null 2>&1
+    vagrant scp kube.tgz /home/core/
+    vagrant ssh k8solo-01 -c "sudo /usr/bin/mkdir -p /opt/bin && sudo tar xzf /home/core/kube.tgz -C /opt/bin && sudo chmod 755 /opt/bin/* && ls -alh /opt/bin " >/dev/null 2>&1
     echo "Done installing ... "
 
     # install fleet units
@@ -81,23 +70,10 @@ then
     i=0
     until ~/coreos-k8s-solo/bin/kubectl version | grep 'Server Version' >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
     i=0
-    until ~/coreos-k8s-solo/bin/kubectl get nodes | grep 172.17.15.102 >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
-    i=0
-    until ~/coreos-k8s-solo/bin/kubectl get nodes | grep 172.17.15.103 >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
-    echo " "
-    # attach label to the nodes
-    ~/coreos-k8s-solo/bin/kubectl label nodes 172.17.15.102 node=worker1
-    ~/coreos-k8s-solo/bin/kubectl label nodes 172.17.15.103 node=worker2
+##    until ~/coreos-k8s-solo/bin/kubectl get nodes | grep 172.19.17.99 >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
     echo " "
 else
-    # start kube
-    vagrant up
-    #
-    ~/coreos-k8s-solo/bin/fleetctl stop ~/coreos-k8s-solo/fleet/kubernetes-ui.service
-    ~/coreos-k8s-solo/bin/fleetctl destroy ~/coreos-k8s-solo/fleet/kubernetes-ui.service
-    rm -f ~/coreos-k8s-solo/fleet/kubernetes-ui.service
-    # start nodes 
-    cd ~/coreos-k8s-solo/workers
+    # start k8solo-01
     vagrant up
 fi
 

@@ -3,7 +3,7 @@
 #  update.command
 #  CoreOS Kubernetes Solo for OS X
 #
-#  Created by Rimantas on 01/04/2014.
+#  Created by Rimantas on 03/06/2015.
 #  Copyright (c) 2014 Rimantas Mocevicius. All rights reserved.
 
 function pause(){
@@ -23,9 +23,6 @@ chmod 755 ~/coreos-k8s-solo/bin/wget
 
 #
 cd ~/coreos-k8s-solo/kube
-vagrant up
-#
-cd ~/coreos-k8s-solo/workers
 vagrant up
 
 # download latest versions of etcdctl and fleetctl
@@ -53,7 +50,7 @@ echo " "
 #
 echo "Reinstalling updated fleet units to '~/coreos-k8s-solo/fleet' folder:"
 # set fleetctl tunnel
-export FLEETCTL_ENDPOINT=http://172.19.17.99:4001
+export FLEETCTL_ENDPOINT=http://172.19.17.99:2379
 export FLEETCTL_DRIVER=etcd
 export FLEETCTL_STRICT_HOST_KEY_CHECKING=false
 cd ~/coreos-k8s-solo/fleet
@@ -128,9 +125,7 @@ spin='-\|/'
 i=1
 until ~/coreos-k8s-solo/bin/kubectl version | grep 'Server Version' >/dev/null 2>&1; do printf "\b${spin:i++%${#sp}:1}"; sleep .1; done
 i=0
-until ~/coreos-k8s-solo/bin/kubectl get nodes | grep 172.17.15.102 >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
-i=0
-until ~/coreos-k8s-solo/bin/kubectl get nodes | grep 172.17.15.103 >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
+##until ~/coreos-k8s-solo/bin/kubectl get nodes | grep 172.19.17.99 >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
 #
 echo " "
 echo "k8s nodes list:"

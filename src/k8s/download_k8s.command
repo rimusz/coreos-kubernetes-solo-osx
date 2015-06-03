@@ -3,7 +3,7 @@
 #  download_k8s.command
 #  CoreOS Kubernetes Solo for OS X
 #
-#  Created by Rimantas on 01/04/2014.
+#  Created by Rimantas on 03/06/2015.
 #  Copyright (c) 2014 Rimantas Mocevicius. All rights reserved.
 
 function pause(){
@@ -31,7 +31,6 @@ echo "Downloading kubectl $K8S_VERSION for OS X"
 chmod 755 kubectl
 
 # download latest version of k8s binaries for CoreOS
-# kube
 ../wget -N -P ./kube https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/kube-apiserver
 ../wget -N -P ./kube https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/kube-controller-manager
 ../wget -N -P ./kube https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/kube-scheduler

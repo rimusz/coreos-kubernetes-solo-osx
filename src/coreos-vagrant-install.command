@@ -3,7 +3,7 @@
 #  coreos-vagrant-install.command
 #  CoreOS Kubernetes Solo for OS X
 #
-#  Created by Rimantas on 01/04/2014.
+#  Created by Rimantas on 03/06/2015.
 #  Copyright (c) 2014 Rimantas Mocevicius. All rights reserved.
 
 # create in "coreos-k8s-solo" all required folders and files at user's home folder where all the data will be stored
@@ -31,6 +31,7 @@
     # copy k8s files
     cp "$1"/k8s/kubectl ~/coreos-k8s-solo/bin
     chmod 755 ~/coreos-k8s-solo/bin/kubectl
+
     # linux binaries
     cp "$1"/k8s/kube.tgz ~/coreos-k8s-solo/kube
 

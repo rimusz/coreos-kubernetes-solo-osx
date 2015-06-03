@@ -2,7 +2,7 @@
 //  AppDelegate.m
 //  CoreOS Kubernetes Solo for OS X
 //
-//  Created by Rimantas on 01/12/2014.
+//  Created by Rimantas on 03/06/2015.
 //  Copyright (c) 2014 Rimantas Mocevicius. All rights reserved.
 //
 
@@ -63,7 +63,7 @@
         {
             // Cancel clicked
             NSString *msg = [NSString stringWithFormat:@"%@ ", @" 'Initial setup of CoreOS+Kubernetes Solo' at any time later one !!! "];
-            [self displayWithMessage:@"You can set Kubernetes Cluster from menu 'Setup':" infoText:msg];
+            [self displayWithMessage:@"You can set Kubernetes Solo from menu 'Setup':" infoText:msg];
         }
     }
 }
@@ -104,7 +104,7 @@
         {
             // Cancel clicked
             NSString *msg = [NSString stringWithFormat:@"%@ ", @" 'Initial setup of CoreOS+Kubernetes Solo' at any time later one !!! "];
-            [self displayWithMessage:@"You can set Kubernetes Cluster from menu 'Setup':" infoText:msg];
+            [self displayWithMessage:@"You can set Kubernetes Solo from menu 'Setup':" infoText:msg];
         }
     }
 }
@@ -153,7 +153,7 @@
 - (IBAction)update_k8s:(id)sender {
     // send a notification on to the screen
     NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.title = @"Kubernetes Cluster and";
+    notification.title = @"Kubernetes Solo and";
     notification.informativeText = @"OS X kubectl will be updated";
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
     
@@ -297,7 +297,7 @@
 }
 
 // ssh to hosts
-- (IBAction)runSsh1:(id)sender {
+- (IBAction)runSsh:(id)sender {
     // send a notification on to the screen
     NSUserNotification *notification = [[NSUserNotification alloc] init];
     notification.informativeText = @"vagrant ssh shell to k8solo-01 will be opened";
@@ -305,29 +305,7 @@
     
     NSString *appName = [[NSString alloc] init];
     NSString *arguments = [[NSString alloc] init];
-    [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"vagrant_control1.command"]];
-}
-
-- (IBAction)runSsh2:(id)sender {
-    // send a notification on to the screen
-    NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.informativeText = @"vagrant ssh shell to k8snode-01 will be opened";
-    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
-    
-    NSString *appName = [[NSString alloc] init];
-    NSString *arguments = [[NSString alloc] init];
-    [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"vagrant_node1.command"]];
-}
-
-- (IBAction)runSsh3:(id)sender {
-    // send a notification on to the screen
-    NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.informativeText = @"vagrant ssh shell to k8snode-02 will be opened";
-    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
-    
-    NSString *appName = [[NSString alloc] init];
-    NSString *arguments = [[NSString alloc] init];
-    [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"vagrant_node2.command"]];
+    [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"vagrant_k8solo-01.command"]];
 }
 // ssh to hosts
 
@@ -342,11 +320,7 @@
 }
 
 - (IBAction)node1_cAdvisor:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://172.17.15.102:4194"]];
-}
-
-- (IBAction)node2_cAdvisor:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://172.17.15.103:4194"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://172.19.17.99:4194"]];
 }
 
 // UI

@@ -3,7 +3,7 @@
 #  os_shell.command
 #  CoreOS Kubernetes Solo for OS X
 #
-#  Created by Rimantas on 01/12/2014.
+#  Created by Rimantas on 03/06/2015.
 #  Copyright (c) 2014 Rimantas Mocevicius. All rights reserved.
 
 # Add vagrant ssh key to ssh-agent

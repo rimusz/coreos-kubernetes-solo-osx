@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14E26a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
@@ -688,7 +688,7 @@
                 <menuItem title="SSH to k8solo-01" id="dvF-TI-XNx">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="runSsh1:" target="494" id="MQP-2q-QP0"/>
+                        <action selector="runSsh:" target="494" id="oZV-FT-fvi"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="B1N-0s-OFg"/>
@@ -765,14 +765,14 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="2qm-xK-2AI"/>
-                            <menuItem title="Destroy Cluster (vagrant destroy)" id="FxG-t4-gXU">
+                            <menuItem title="Destroy k8s Solo (vagrant destroy)" id="FxG-t4-gXU">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="destroy:" target="494" id="Jew-dm-MAW"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="IpY-jd-Luh"/>
-                            <menuItem title="Initial setup of CoreOS-Vagrant k8s Cluster" id="dRI-wk-81S">
+                            <menuItem title="Initial setup of CoreOS-Vagrant k8s Solo" id="dRI-wk-81S">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="initialInstall:" target="494" id="n4m-Uq-Dx0"/>
