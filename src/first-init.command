@@ -93,7 +93,7 @@ read -p "$*"
 
 # first up to initialise VMs
 echo " "
-echo "Setting up Vagrant VMs for CoreOS Kubernetes Solo on OS X"
+echo "Setting up Vagrant VM for CoreOS Kubernetes Solo on OS X"
 cd ~/coreos-k8s-solo/kube
 vagrant box update
 vagrant up --provider virtualbox

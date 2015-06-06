@@ -87,8 +87,6 @@ until ~/coreos-k8s-solo/bin/kubectl version | grep 'Server Version' >/dev/null 2
 i=0
 until ~/coreos-k8s-solo/bin/kubectl get nodes | grep 172.19.17.99 >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
 echo " "
-# attach label to the node
-~/coreos-k8s-solo/bin/kubectl label nodes 172.19.17.99 node=worker1
 #
 echo " "
 echo "k8s nodes list:"
