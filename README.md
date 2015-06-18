@@ -1,11 +1,7 @@
 CoreOS-Vagrant Kubernetes Solo GUI for OS X
 ============================
 
-<<<<<<< HEAD
-![k8s-solo](https://github.com/brendandburns/kubernetes/blob/docs/docs/getting-started-guides/k8s-singlenode-docker.png)
-=======
 ![k8s-solo](k8s-singlenode.png)
->>>>>>> dev
 
 `CoreOS-Vagrant Kubernetes Solo GUI for Mac OS X` is a Mac Status bar App which works like a wrapper around [coreos-vagrant](https://github.com/coreos/coreos-vagrant) command line tool and bootstraps Kubernetes on one standalone  machine.
 
