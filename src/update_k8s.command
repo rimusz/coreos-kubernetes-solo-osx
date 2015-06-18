@@ -28,7 +28,7 @@ K8S_VERSION=$(get_latest_version_number)
 # download latest version of kubectl for OS X
 cd ~/coreos-k8s-solo/tmp
 echo "Downloading kubectl $K8S_VERSION for OS X"
-~/coreos-k8s-solo/bin/wget -N -P ~/coreos-k8s-solo/bin https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/darwin/amd64/kubectl
+curl -L https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/darwin/amd64/kubectl >  ~/coreos-k8s-solo/bin/kubectl
 chmod 755 ~/coreos-k8s-solo/bin/kubectl
 echo "kubectl was copied to ~/coreos-k8s-solo/bin"
 echo " "
@@ -38,15 +38,14 @@ rm -rf ~/coreos-k8s-solo/tmp/*
 
 # download latest version of k8s for CoreOS
 echo "Downloading latest version of Kubernetes"
-~/coreos-k8s-solo/bin/wget -N -P ~/coreos-k8s-solo/tmp https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/kube-apiserver
-~/coreos-k8s-solo/bin/wget -N -P ~/coreos-k8s-solo/tmp https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/kube-kubeler-manager
-~/coreos-k8s-solo/bin/wget -N -P ~/coreos-k8s-solo/tmp https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/kube-scheduler
-~/coreos-k8s-solo/bin/wget -N -P ~/coreos-k8s-solo/tmp https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/kubelet
-~/coreos-k8s-solo/bin/wget -N -P ~/coreos-k8s-solo/tmp https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/kube-proxy
-~/coreos-k8s-solo/bin/wget -N -P ~/coreos-k8s-solo/tmp https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/kubectl
+bins=( kubectl kubelet kube-proxy kube-apiserver kube-scheduler kube-controller-manager )
+for b in "${bins[@]}"; do
+    curl -L https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/$b > ~/coreos-k8s-solo/tmp/$b
+done
 #
 LKR=$(curl 'https://api.github.com/repos/kelseyhightower/kube-register/releases' 2>/dev/null|grep -o -m 1 -e "\"tag_name\":[[:space:]]*\"[a-z0-9.]*\""|head -1|cut -d: -f2|tr -d ' "' | cut -c 2-)
-~/coreos-k8s-solo/bin/wget -N -O ~/coreos-k8s-solo/tmp/kube-register https://github.com/kelseyhightower/kube-register/releases/download/v$LKR/kube-register-$LKR-linux-amd64
+curl -L https://github.com/kelseyhightower/kube-register/releases/download/v$LKR/kube-register-$LKR-linux-amd64 > ~/coreos-k8s-solo/tmp/kube-register
+
 tar czvf kube.tgz *
 cp -f kube.tgz ~/coreos-k8s-solo/kube/
 # clean up tmp folder
