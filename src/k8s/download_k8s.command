@@ -23,25 +23,26 @@ elif [[ $(which curl) ]]; then
 fi
 }
 
-K8S_VERSION=$(get_latest_version_number)
+K8S_VERSION=v0.19.0
+#$(get_latest_version_number)
 
 # download latest version of kubectl for OS X
 echo "Downloading kubectl $K8S_VERSION for OS X"
-../wget https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/darwin/amd64/kubectl
-chmod 755 kubectl
+curl -L https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/darwin/amd64/kubectl > kubectl
+chmod a+x kubectl
 
 # download latest version of k8s binaries for CoreOS
-../wget -N -P ./kube https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/kube-apiserver
-../wget -N -P ./kube https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/kube-controller-manager
-../wget -N -P ./kube https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/kube-scheduler
-../wget -N -P ./kube https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/kubelet
-../wget -N -P ./kube https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/kube-proxy
-../wget -N -P ./kube https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/kubectl
+bins=( kubectl kubelet kube-proxy kube-apiserver kube-scheduler kube-controller-manager )
+for b in "${bins[@]}"; do
+    curl -L https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/$b > kube/$b
+done
+
 #
 LKR=$(curl 'https://api.github.com/repos/kelseyhightower/kube-register/releases' 2>/dev/null|grep -o -m 1 -e "\"tag_name\":[[:space:]]*\"[a-z0-9.]*\""|head -1|cut -d: -f2|tr -d ' "' | cut -c 2-)
-../wget -N -O ./kube/kube-register https://github.com/kelseyhightower/kube-register/releases/download/v$LKR/kube-register-$LKR-linux-amd64
+curl -L https://github.com/kelseyhightower/kube-register/releases/download/v$LKR/kube-register-$LKR-linux-amd64 > kube/kube-register
+chmod a+x kube/*
 tar czvf kube.tgz -C kube .
-rm -f ./kube/*
+rm -f kube/*
 
 #
 echo "Download has finished !!!"

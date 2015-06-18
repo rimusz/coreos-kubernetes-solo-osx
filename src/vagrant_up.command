@@ -70,7 +70,7 @@ then
     i=0
     until ~/coreos-k8s-solo/bin/kubectl version | grep 'Server Version' >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
     i=0
-##    until ~/coreos-k8s-solo/bin/kubectl get nodes | grep 172.19.17.99 >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
+    until ~/coreos-k8s-solo/bin/kubectl get nodes | grep 172.19.17.99 >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
     echo " "
 else
     # start k8solo-01
@@ -91,6 +91,15 @@ echo "fleetctl list-units:"
 fleetctl list-units
 echo " "
 #
+
+echo Waiting for Kubernetes cluster to be ready. This can take a few minutes...
+spin='-\|/'
+i=0
+until ~/coreos-k8s-solo/bin/kubectl version | grep 'Server Version' >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
+i=0
+until ~/coreos-k8s-solo/bin/kubectl get nodes | grep 172.19.17.99 >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
+echo " "
+
 echo "kubectl get nodes:"
 kubectl get nodes
 echo " "
