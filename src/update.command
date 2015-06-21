@@ -72,12 +72,20 @@ then
   ~/coreos-k8s-solo/bin/fleetctl start kube-apiserver.service
 fi
 
-if [ "$(diff "$res_folder"/fleet/kube-kubeler-manager.service ~/coreos-k8s-solo/fleet/kube-controller-manager.service | tr -d '\n' | cut -c1-4 )" != "" ]
+if [ "$(diff "$res_folder"/fleet/kube-controller-manager.service ~/coreos-k8s-solo/fleet/kube-controller-manager.service | tr -d '\n' | cut -c1-4 )" != "" ]
 then
-  echo "updating kube-kubeler-manager.service!"
-  cp -fr "$res_folder"/fleet/kube-kubeler-manager.service ~/coreos-k8s-solo/fleet/kube-controller-manager.service
+  echo "updating kube-controller-manager.service!"
+  cp -fr "$res_folder"/fleet/kube-controller-manager.service ~/coreos-k8s-solo/fleet/kube-controller-manager.service
   ~/coreos-k8s-solo/bin/fleetctl destroy kube-kubeler-manager.service
   ~/coreos-k8s-solo/bin/fleetctl start kube-kubeler-manager.service
+fi
+
+if [ "$(diff "$res_folder"/fleet/kube-scheduler.service ~/coreos-k8s-solo/fleet/kube-scheduler.service | tr -d '\n' | cut -c1-4 )" != "" ]
+then
+    echo "updating kube-scheduler.service!"
+    cp -fr "$res_folder"/fleet/kube-scheduler.service ~/coreos-k8s-solo/fleet/kube-scheduler.service
+    ~/coreos-k8s-solo/bin/fleetctl destroy kube-scheduler.service
+    ~/coreos-k8s-solo/bin/fleetctl start kube-scheduler.service
 fi
 
 if [ "$(diff "$res_folder"/fleet/kube-kubelet.service ~/coreos-k8s-solo/fleet/kube-kubelet.service | tr -d '\n' | cut -c1-4 )" != "" ]
@@ -94,22 +102,6 @@ then
   cp -fr "$res_folder"/fleet/kube-proxy.service ~/coreos-k8s-solo/fleet/kube-proxy.service
   ~/coreos-k8s-solo/bin/fleetctl destroy kube-proxy.service
   ~/coreos-k8s-solo/bin/fleetctl start kube-proxy.service
-fi
-
-if [ "$(diff "$res_folder"/fleet/kube-register.service ~/coreos-k8s-solo/fleet/kube-register.service | tr -d '\n' | cut -c1-4 )" != "" ]
-then
-  echo "updating kube-register.service!"
-  cp -fr "$res_folder"/fleet/kube-register.service ~/coreos-k8s-solo/fleet/kube-register.service
-  ~/coreos-k8s-solo/bin/fleetctl destroy kube-register.service
-  ~/coreos-k8s-solo/bin/fleetctl start kube-register.service
-fi
-
-if [ "$(diff "$res_folder"/fleet/kube-scheduler.service ~/coreos-k8s-solo/fleet/kube-scheduler.service | tr -d '\n' | cut -c1-4 )" != "" ]
-then
-  echo "updating kube-scheduler.service!"
-  cp -fr "$res_folder"/fleet/kube-scheduler.service ~/coreos-k8s-solo/fleet/kube-scheduler.service
-  ~/coreos-k8s-solo/bin/fleetctl destroy kube-scheduler.service
-  ~/coreos-k8s-solo/bin/fleetctl start kube-scheduler.service
 fi
 
 
