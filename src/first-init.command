@@ -171,8 +171,8 @@ echo " "
 
 #
 echo " "
-echo "Installation has finished, CoreOS VM is up and running !!!"
-echo "Enjoy CoreOS+Kubernetes Solo on your Mac !!!"
+echo "Installation has finished, CoreOS VM and Kubernetes are up and running !!!"
+echo "Enjoy Kubernetes Solo on your Mac !!!"
 echo " "
 echo "Run from menu 'OS Shell' to open a terninal window with fleetctl, etcdctl and kubectl preset to master's IP!!!"
 echo " "

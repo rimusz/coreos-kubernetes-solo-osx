@@ -23,8 +23,7 @@ elif [[ $(which curl) ]]; then
 fi
 }
 
-K8S_VERSION=v0.19.0
-#$(get_latest_version_number)
+K8S_VERSION=$(get_latest_version_number)
 
 # download latest version of kubectl for OS X
 echo "Downloading kubectl $K8S_VERSION for OS X"
