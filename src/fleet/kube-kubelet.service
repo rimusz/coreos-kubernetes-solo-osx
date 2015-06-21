@@ -9,6 +9,7 @@ ExecStart=/opt/bin/kubelet \
  --address=0.0.0.0 \
  --port=10250 \
  --hostname_override=${COREOS_PRIVATE_IPV4} \
+ --register-node=true \
  --api_servers=http://127.0.0.1:8080 \
  --allow_privileged=true \
  --logtostderr=true \
