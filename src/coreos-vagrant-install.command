@@ -6,6 +6,9 @@
 #  Created by Rimantas on 03/06/2015.
 #  Copyright (c) 2014 Rimantas Mocevicius. All rights reserved.
 
+# create symbolic link for vagrant to work on OS X 10.11
+ln -s /opt/vagrant/bin/vagrant /usr/local/bin/vagrant >/dev/null 2>&1
+
 # create in "coreos-k8s-solo" all required folders and files at user's home folder where all the data will be stored
     mkdir ~/coreos-k8s-solo/tmp
     mkdir ~/coreos-k8s-solo/bin

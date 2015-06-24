@@ -35,14 +35,10 @@ bins=( kubectl kubelet kube-proxy kube-apiserver kube-scheduler kube-controller-
 for b in "${bins[@]}"; do
     curl -L https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/$b > kube/$b
 done
-
-#
-LKR=$(curl 'https://api.github.com/repos/kelseyhightower/kube-register/releases' 2>/dev/null|grep -o -m 1 -e "\"tag_name\":[[:space:]]*\"[a-z0-9.]*\""|head -1|cut -d: -f2|tr -d ' "' | cut -c 2-)
-curl -L https://github.com/kelseyhightower/kube-register/releases/download/v$LKR/kube-register-$LKR-linux-amd64 > kube/kube-register
 chmod a+x kube/*
 tar czvf kube.tgz -C kube .
+rm -f kube/*.*
 rm -f kube/*
-
 #
 echo "Download has finished !!!"
 pause 'Press [Enter] key to continue...'

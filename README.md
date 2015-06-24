@@ -80,7 +80,6 @@ kube-apiserver.service			c576b883.../172.19.17.99	active	running
 kube-controller-manager.service	c576b883.../172.19.17.99	active	running
 kube-kubelet.service			c576b883.../172.19.17.99	active	running
 kube-proxy.service				c576b883.../172.19.17.99	active	running
-kube-register.service			c576b883.../172.19.17.99	active	running
 kube-scheduler.service			c576b883.../172.19.17.99	active	running
 
 kubectl get nodes:

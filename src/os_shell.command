@@ -14,6 +14,7 @@ export PATH=${HOME}/coreos-k8s-solo/bin:$PATH
 
 # set etcd endpoint
 export ETCDCTL_PEERS=http://172.19.17.99:2379
+echo " "
 echo "etcd cluster:"
 etcdctl --no-sync ls /
 echo ""
