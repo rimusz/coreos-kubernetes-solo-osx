@@ -5,7 +5,14 @@ CoreOS-Vagrant Kubernetes Solo GUI for OS X
 
 `CoreOS-Vagrant Kubernetes Solo GUI for Mac OS X` is a Mac Status bar App which works like a wrapper around [coreos-vagrant](https://github.com/coreos/coreos-vagrant) command line tool and bootstraps Kubernetes on one standalone  machine.
 
-Note: Fully supports etcd2 in all CoresOS channels.
+Fully supports etcd2 in all CoresOS channels.
+
+####Note: OS X El Capitan:
+
+* If you do a fresh install OS X El Capitan support will be enabled
+
+* Otherwise run: `ln -s /opt/vagrant/bin/vagrant /usr/local/bin/vagrant >/dev/null 2>&1` 
+
 
 [CoreOS](https://coreos.com) is a Linux distribution made specifically to run [Docker](https://www.docker.io/) containers.
 [CoreOS-Vagrant](https://github.com/coreos/coreos-vagrant) is made to run on VirtualBox and VMWare VMs.
@@ -80,7 +87,6 @@ kube-apiserver.service			c576b883.../172.19.17.99	active	running
 kube-controller-manager.service	c576b883.../172.19.17.99	active	running
 kube-kubelet.service			c576b883.../172.19.17.99	active	running
 kube-proxy.service				c576b883.../172.19.17.99	active	running
-kube-register.service			c576b883.../172.19.17.99	active	running
 kube-scheduler.service			c576b883.../172.19.17.99	active	running
 
 kubectl get nodes:
