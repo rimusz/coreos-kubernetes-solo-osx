@@ -42,6 +42,8 @@ then
     chmod 755 ~/coreos-k8s-solo/bin/wget
     # copy fleet units
     cp -Rf "${res_folder}"/fleet/ ~/coreos-k8s-solo/fleet
+    # copy k8s UI files
+    cp -f "${res_folder}"/k8s/*.yaml ~/coreos-k8s-solo/kubernetes
 
     #
     vagrant box update
@@ -72,6 +74,17 @@ then
     i=0
     until ~/coreos-k8s-solo/bin/kubectl get nodes | grep 172.19.17.99 >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
     echo " "
+    # attach label to the node
+    ~/coreos-k8s-solo/bin/kubectl label nodes 172.19.17.99 node=worker1
+    #
+    echo " "
+    echo "Installing k8s UI ..."
+    ~/coreos-k8s-solo/bin/kubectl create -f ~/coreos-k8s-solo/kubernetes/kube-ui-rc.yaml
+    ~/coreos-k8s-solo/bin/kubectl create -f ~/coreos-k8s-solo/kubernetes/kube-ui-svc.yaml
+    # clean up kubernetes folder
+    rm -f ~/coreos-k8s-solo/kubernetes/kube-ui-rc.yaml
+    rm -f ~/coreos-k8s-solo/kubernetes/kube-ui-svc.yaml
+
 else
     # start k8solo-01
     vagrant up
@@ -98,7 +111,6 @@ echo "fleetctl list-units:"
 fleetctl list-units
 echo " "
 #
-
 
 echo Waiting for Kubernetes cluster to be ready. This can take a few minutes...
 spin='-\|/'

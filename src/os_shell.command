@@ -9,32 +9,54 @@
 # Add vagrant ssh key to ssh-agent
 ssh-add ~/.vagrant.d/insecure_private_key >/dev/null 2>&1
 
-# path to the bin folder where we store our binary files
-export PATH=${HOME}/coreos-k8s-solo/bin:$PATH
+#
+function pause(){
+read -p "$*"
+}
 
-# set etcd endpoint
-export ETCDCTL_PEERS=http://172.19.17.99:2379
-echo " "
-echo "etcd cluster:"
-etcdctl --no-sync ls /
-echo ""
+cd ~/coreos-k8s-solo/kube
+machine_status=$(vagrant status | grep -o -m 1 'poweroff\|not created')
 
-# set fleetctl endpoint
-export FLEETCTL_ENDPOINT=http://172.19.17.99:2379
-export FLEETCTL_DRIVER=etcd
-export FLEETCTL_STRICT_HOST_KEY_CHECKING=false
-echo "fleetctl list-machines:"
-fleetctl list-machines
-echo " "
-echo "fleetctl list-units:"
-fleetctl list-units
-echo " "
+if [ "$machine_status" = "poweroff" ]
+then
+    echo " "
+    echo "CoreOS Kubernetes Solo VM is not running !!!"
+    pause 'Press [Enter] key to continue...'
+elif [ "$machine_status" = "not created" ]
+then
+    echo " "
+    echo "CoreOS Kubernetes Solo VM is not created !!!"
+    pause 'Press [Enter] key to continue...'
+else
 
-# set kubernetes master
-export KUBERNETES_MASTER=http://172.19.17.99:8080
-echo "kubectl get nodes:"
-kubectl get nodes
-echo " "
+    # path to the bin folder where we store our binary files
+    export PATH=${HOME}/coreos-k8s-solo/bin:$PATH
 
-# open bash shell
-/bin/bash
+    # set etcd endpoint
+    export ETCDCTL_PEERS=http://172.19.17.99:2379
+    echo " "
+    echo "etcd cluster:"
+    etcdctl --no-sync ls /
+    echo ""
+
+    # set fleetctl endpoint
+    export FLEETCTL_ENDPOINT=http://172.19.17.99:2379
+    export FLEETCTL_DRIVER=etcd
+    export FLEETCTL_STRICT_HOST_KEY_CHECKING=false
+    echo "fleetctl list-machines:"
+    fleetctl list-machines
+    echo " "
+    echo "fleetctl list-units:"
+    fleetctl list-units
+    echo " "
+
+    # set kubernetes master
+    export KUBERNETES_MASTER=http://172.19.17.99:8080
+    echo "kubectl get nodes:"
+    kubectl get nodes
+    echo " "
+
+    # open bash shell
+    /bin/bash
+
+fi

@@ -34,7 +34,7 @@ ln -s /opt/vagrant/bin/vagrant /usr/local/bin/vagrant >/dev/null 2>&1
     # copy k8s files
     cp "$1"/k8s/kubectl ~/coreos-k8s-solo/bin
     chmod 755 ~/coreos-k8s-solo/bin/kubectl
-
+    cp "$1"/k8s/*.yaml ~/coreos-k8s-solo/kubernetes
     # linux binaries
     cp "$1"/k8s/kube.tgz ~/coreos-k8s-solo/kube
 
