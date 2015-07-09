@@ -6,9 +6,26 @@
 #  Created by Rimantas on 03/06/2015.
 #  Copyright (c) 2014 Rimantas Mocevicius. All rights reserved.
 
+#
 function pause(){
 read -p "$*"
 }
+
+cd ~/coreos-k8s-solo/kube
+machine_status=$(vagrant status | grep -o -m 1 'poweroff\|not created')
+
+if [ "$machine_status" = "poweroff" ]
+then
+    echo " "
+    echo "CoreOS Kubernetes Solo VM is not running !!!"
+    pause 'Press [Enter] key to continue...'
+elif [ "$machine_status" = "not created" ]
+then
+    echo " "
+    echo "CoreOS Kubernetes Solo VM is not created !!!"
+    pause 'Press [Enter] key to continue...'
+else
+
 
 #
 cd ~/coreos-k8s-solo/tmp
@@ -17,9 +34,9 @@ cd ~/coreos-k8s-solo/tmp
 function get_latest_version_number {
 local -r latest_url="https://storage.googleapis.com/kubernetes-release/release/latest.txt"
 if [[ $(which wget) ]]; then
-wget -qO- ${latest_url}
+    wget -qO- ${latest_url}
 elif [[ $(which curl) ]]; then
-curl -Ss ${latest_url}
+    curl -Ss ${latest_url}
 fi
 }
 
@@ -93,3 +110,4 @@ echo " "
 echo "Kubernetes update has finished !!!"
 pause 'Press [Enter] key to continue...'
 
+fi

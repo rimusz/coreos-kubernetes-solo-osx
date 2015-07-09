@@ -165,6 +165,15 @@ echo " "
 ~/coreos-k8s-solo/bin/kubectl label nodes 172.19.17.99 node=worker1
 #
 echo " "
+echo "Installing k8s UI ..."
+~/coreos-k8s-solo/bin/kubectl create -f ~/coreos-k8s-solo/kubernetes/kube-ui-rc.yaml
+~/coreos-k8s-solo/bin/kubectl create -f ~/coreos-k8s-solo/kubernetes/kube-ui-svc.yaml
+# clean up kubernetes folder
+rm -f ~/coreos-k8s-solo/kubernetes/kube-ui-rc.yaml
+rm -f ~/coreos-k8s-solo/kubernetes/kube-ui-svc.yaml
+
+#
+echo " "
 echo "kubectl get nodes:"
 ~/coreos-k8s-solo/bin/kubectl get nodes
 echo " "
