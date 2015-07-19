@@ -45,7 +45,7 @@ else
     LATEST_RELEASE=$(vagrant ssh k8solo-01 -c "etcdctl --version" | cut -d " " -f 3- | tr -d '\r' )
     cd ~/coreos-k8s-solo/bin
     echo "Downloading etcdctl $LATEST_RELEASE for OS X"
-    curl -L -o etcd.zip "https://github.com/coreos/etcd/releases/download/v$LATEST_RELEASE/etcd-v$LATEST_RELEASE-darwin-amd64.zip"
+    curl -k -L -o etcd.zip "https://github.com/coreos/etcd/releases/download/v$LATEST_RELEASE/etcd-v$LATEST_RELEASE-darwin-amd64.zip"
     unzip -j -o "etcd.zip" "etcd-v$LATEST_RELEASE-darwin-amd64/etcdctl"
     rm -f etcd.zip
     echo "etcdctl was copied to ~/coreos-k8s-solo/bin"
@@ -56,7 +56,7 @@ else
     LATEST_RELEASE=$(vagrant ssh k8solo-01 -c 'fleetctl version' | cut -d " " -f 3- | tr -d '\r')
     cd ~/coreos-k8s-solo/bin
     echo "Downloading fleetctl v$LATEST_RELEASE for OS X"
-    curl -L -o fleet.zip "https://github.com/coreos/fleet/releases/download/v$LATEST_RELEASE/fleet-v$LATEST_RELEASE-darwin-amd64.zip"
+    curl -k -L -o fleet.zip "https://github.com/coreos/fleet/releases/download/v$LATEST_RELEASE/fleet-v$LATEST_RELEASE-darwin-amd64.zip"
     unzip -j -o "fleet.zip" "fleet-v$LATEST_RELEASE-darwin-amd64/fleetctl"
     rm -f fleet.zip
     echo "fleetctl was copied to ~/coreos-k8s-solo/bin "

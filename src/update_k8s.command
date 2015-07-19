@@ -45,7 +45,7 @@ K8S_VERSION=$(get_latest_version_number)
 # download latest version of kubectl for OS X
 cd ~/coreos-k8s-solo/tmp
 echo "Downloading kubectl $K8S_VERSION for OS X"
-curl -L https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/darwin/amd64/kubectl >  ~/coreos-k8s-solo/bin/kubectl
+curl -k -L https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/darwin/amd64/kubectl >  ~/coreos-k8s-solo/bin/kubectl
 chmod 755 ~/coreos-k8s-solo/bin/kubectl
 echo "kubectl was copied to ~/coreos-k8s-solo/bin"
 echo " "
@@ -57,7 +57,7 @@ rm -rf ~/coreos-k8s-solo/tmp/*
 echo "Downloading latest version of Kubernetes"
 bins=( kubectl kubelet kube-proxy kube-apiserver kube-scheduler kube-controller-manager )
 for b in "${bins[@]}"; do
-    curl -L https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/$b > ~/coreos-k8s-solo/tmp/$b
+    curl -k -L https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/$b > ~/coreos-k8s-solo/tmp/$b
 done
 #
 tar czvf kube.tgz *
