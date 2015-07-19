@@ -165,7 +165,15 @@ echo " "
 ~/coreos-k8s-solo/bin/kubectl label nodes 172.19.17.99 node=worker1
 #
 echo " "
-echo "Installing k8s UI ..."
+echo "Installing SkyDNS ..."
+~/coreos-k8s-solo/bin/kubectl create -f ~/coreos-k8s-solo/kubernetes/skydns-rc.yaml
+~/coreos-k8s-solo/bin/kubectl create -f ~/coreos-k8s-solo/kubernetes/skydns-svc.yaml
+# clean up kubernetes folder
+rm -f ~/coreos-k8s-solo/kubernetes/skydns-rc.yaml
+rm -f ~/coreos-k8s-solo/kubernetes/skydns-svc.yaml
+#
+echo " "
+echo "Installing Kubernetes UI ..."
 ~/coreos-k8s-solo/bin/kubectl create -f ~/coreos-k8s-solo/kubernetes/kube-ui-rc.yaml
 ~/coreos-k8s-solo/bin/kubectl create -f ~/coreos-k8s-solo/kubernetes/kube-ui-svc.yaml
 # clean up kubernetes folder

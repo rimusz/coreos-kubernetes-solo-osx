@@ -42,6 +42,7 @@ The install will do the following:
 * When you first time install or do 'Up' after destroying k8s Solo setup, k8s binary files (with the version which was available when the App was built) get copied to CoreOS VM, this speeds up Kubernetes setup. To update Kubernetes just run from menu 'Updates' - Update Kubernetes and OS X kubectl.
 * It will install `fleetctl, etcdctl and kubectl` to `~/coreos-k8s-solo/bin/`
 * Kubernetes services will be installed with fleet units which are placed in `~/coreos-k8s-solo/fleet`, this allows very easy updates to fleet units if needed.
+* Also [DNS Add On](https://github.com/GoogleCloudPlatform/kubernetes/tree/master/cluster/addons/dns) will be installed
 
 How it works
 ------------

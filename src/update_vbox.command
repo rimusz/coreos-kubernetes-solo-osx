@@ -14,12 +14,7 @@ read -p "$*"
 cd ~/coreos-k8s-solo/kube
 machine_status=$(vagrant status | grep -o -m 1 'poweroff\|not created')
 
-if [ "$machine_status" = "poweroff" ]
-then
-    echo " "
-    echo "CoreOS Kubernetes Solo VM is not running !!!"
-    pause 'Press [Enter] key to continue...'
-elif [ "$machine_status" = "not created" ]
+if [ "$machine_status" = "not created" ]
 then
     echo " "
     echo "CoreOS Kubernetes Solo VM is not created !!!"
