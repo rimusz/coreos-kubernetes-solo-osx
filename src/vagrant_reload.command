@@ -1,10 +1,12 @@
-#!/bin/bash
+#!/bin/bash -x
 
 #  vagrant_up.command
 #  CoreOS Kubernetes Solo for OS X
 #
 #  Created by Rimantas on 03/06/2015.
 #  Copyright (c) 2014 Rimantas Mocevicius. All rights reserved.
+
+export PATH=/usr/local/bin
 
 #
 function pause(){
