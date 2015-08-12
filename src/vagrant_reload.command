@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 #  vagrant_up.command
 #  CoreOS Kubernetes Solo for OS X
