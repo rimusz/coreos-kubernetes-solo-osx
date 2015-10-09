@@ -104,7 +104,7 @@ ssh-add ~/.vagrant.d/insecure_private_key >/dev/null 2>&1
 echo " "
 echo " Installing k8s files to k8solo-01:"
 cd ~/coreos-k8s-solo/kube
-vagrant scp kube.tgz /home/core/
+vagrant scp kube.tgz k8solo-01:/home/core/
 vagrant ssh k8solo-01 -c "sudo /usr/bin/mkdir -p /opt/bin && sudo tar xzf /home/core/kube.tgz -C /opt/bin && sudo chmod 755 /opt/bin/* " >/dev/null 2>&1
 echo "Done installing ... "
 echo " "
