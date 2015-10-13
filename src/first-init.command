@@ -13,7 +13,7 @@ echo " "
 echo Installing Kubernetes Solo ...
 echo " "
 # install vagrant scp plugin
-vagrant plugin install vagrant-scp
+vagrant plugin install --plugin-version 0.4.1 vagrant-scp
 
 ### getting files from github and setting them up
 echo ""
