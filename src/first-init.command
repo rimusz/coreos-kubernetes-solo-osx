@@ -13,7 +13,7 @@ echo " "
 echo Installing Kubernetes Solo ...
 echo " "
 # install vagrant scp plugin
-vagrant plugin install vagrant-scp
+vagrant plugin install --plugin-version 0.4.1 vagrant-scp
 
 ### getting files from github and setting them up
 echo ""
@@ -33,6 +33,7 @@ sed -i "" 's/172.17.8.#{i+100}/172.19.17.99/g' ~/coreos-k8s-solo/kube/Vagrantfil
 cp ~/coreos-k8s-solo/tmp/config.rb.sample ~/coreos-k8s-solo/kube/config.rb
 sed -i "" 's/#$instance_name_prefix="core"/$instance_name_prefix="k8solo"/' ~/coreos-k8s-solo/kube/config.rb
 sed -i "" 's/#$vm_memory = 1024/$vm_memory = 1536/' ~/coreos-k8s-solo/kube/config.rb
+sed -i "" 's/File.open/#File.open/' ~/coreos-k8s-solo/kube/config.rb
 ###
 
 ### Set release channel
