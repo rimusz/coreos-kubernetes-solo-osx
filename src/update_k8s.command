@@ -32,12 +32,8 @@ cd ~/coreos-k8s-solo/tmp
 
 # get latest k8s version
 function get_latest_version_number {
-local -r latest_url="https://storage.googleapis.com/kubernetes-release/release/latest.txt"
-if [[ $(which wget) ]]; then
-    wget -qO- ${latest_url}
-elif [[ $(which curl) ]]; then
-    curl -Ss ${latest_url}
-fi
+ local -r latest_url="https://storage.googleapis.com/kubernetes-release/release/latest.txt"
+ curl -Ss ${latest_url}
 }
 
 K8S_VERSION=$(get_latest_version_number)
@@ -69,7 +65,7 @@ echo " "
 # install k8s files
 echo "Installing latest version of Kubernetes ..."
 cd ~/coreos-k8s-solo/kube
-vagrant scp kube.tgz /home/core/
+vagrant scp kube.tgz k8solo-01:/home/core/
 vagrant ssh k8solo-01 -c "sudo /usr/bin/mkdir -p /opt/bin && sudo tar xzf /home/core/kube.tgz -C /opt/bin && sudo chmod 755 /opt/bin/* "
 echo "Done with k8solo-01 "
 echo " "
