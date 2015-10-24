@@ -100,11 +100,13 @@ You're now ready to use Kubernetes cluster.
 
 Some examples to start with [Kubernetes examples](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/examples/).
 
-Other links
+Other Apps
 -----------
+* Kubernetes Solo cluster CoreOS VM App based on [xhyve](https://github.com/coreos/coreos-xhyve) can be found here [Kubernetes Solo cluster for OS X](https://github.com/rimusz/kube-solo-osx).
+* 
 * Cluster one with Kubernetes CoreOS VM App can be found here [CoreOS-Vagrant Kubernetes Cluster GUI for OS X](https://github.com/rimusz/coreos-osx-gui-kubernetes-cluster).
 
-* A standalone CoreOS VM version App can be found here [CoreOS-Vagrant GUI](https://github.com/rimusz/coreos-osx-gui).
+* A standalone CoreOS VM version App can be found here [CoreOS VM GUI for OS X](https://github.com/rimusz/coreos-osx-gui).
 
 * Cluster one without Kubernetes CoreOS VM App can be found here [CoreOS-Vagrant Cluster GUI](https://github.com/rimusz/coreos-osx-gui-cluster).
 
