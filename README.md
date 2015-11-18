@@ -1,4 +1,4 @@
-CoreOS-Vagrant Kubernetes Solo GUI for OS X
+CoreOS-Vagrant Kubernetes Solo for OS X
 ============================
 
 ![k8s-solo](k8s-singlenode.png)
@@ -11,7 +11,7 @@ Fully supports etcd2 in all CoresOS channels.
 [CoreOS](https://coreos.com) is a Linux distribution made specifically to run [Docker](https://www.docker.io/) containers.
 [CoreOS-Vagrant](https://github.com/coreos/coreos-vagrant) is made to run on VirtualBox and VMWare VMs.
 
-![CoreOS-Vagrant-Kubernetes-Solo-GUI](coreos-vagrant-k8s-solo-gui.png "CoreOS-Vagrant-Kubernetes-Solo-GUI")
+![CoreOS-Vagrant-Kubernetes-Solo](coreos-vagrant-k8s-solo-gui.png "CoreOS-Vagrant-Kubernetes-Solo-GUI")
 
 Download
 --------
@@ -103,11 +103,11 @@ Some examples to start with [Kubernetes examples](https://github.com/GoogleCloud
 Other Apps
 -----------
 * Kubernetes Solo cluster CoreOS VM App based on [xhyve](https://github.com/coreos/coreos-xhyve) can be found here [Kubernetes Solo cluster for OS X](https://github.com/rimusz/kube-solo-osx).
-* 
-* Cluster one with Kubernetes CoreOS VM App can be found here [CoreOS-Vagrant Kubernetes Cluster GUI for OS X](https://github.com/rimusz/coreos-osx-gui-kubernetes-cluster).
 
-* A standalone CoreOS VM version App can be found here [CoreOS VM GUI for OS X](https://github.com/rimusz/coreos-osx-gui).
+* Cluster one with Kubernetes CoreOS VM App can be found here [CoreOS-Vagrant Kubernetes Cluster for OS X](https://github.com/rimusz/coreos-osx-kubernetes-cluster).
 
-* Cluster one without Kubernetes CoreOS VM App can be found here [CoreOS-Vagrant Cluster GUI](https://github.com/rimusz/coreos-osx-gui-cluster).
+* A standalone CoreOS VM version App can be found here [CoreOS VM for OS X](https://github.com/rimusz/coreos-osx).
+
+* Cluster one without Kubernetes CoreOS VM App can be found here [CoreOS-Vagrant Cluster](https://github.com/rimusz/coreos-osx-cluster).
 
 
