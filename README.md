@@ -1,5 +1,6 @@
 CoreOS-Vagrant Kubernetes Solo for OS X
 ============================
+NEWS: This App is not maintained anymore and is replaced by [Kube-Solo for OS X](https://github.com/TheNewNormal/kube-solo-osx)
 
 ![k8s-solo](k8s-singlenode.png)
 
